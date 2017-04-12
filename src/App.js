@@ -18,7 +18,7 @@ class App extends Component {
     });
     
     VK.Auth.getLoginStatus(response =>{
-      console.log(response);
+      
       if(response.status === 'connected'){
         const id = response.session.mid;
         const user = this.state.user;
