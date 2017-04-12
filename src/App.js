@@ -18,6 +18,7 @@ class App extends Component {
     });
     
     VK.Auth.getLoginStatus(response =>{
+      console.log(response);
       if(response.status === 'connected'){
         const id = response.session.mid;
         const user = this.state.user;
@@ -30,14 +31,14 @@ class App extends Component {
           user.firstName = response.response[0].first_name;
           user.lastName = response.response[0].last_name;
           user.photo = response.response[0].photo_50;
-        });
-        
-        VK.Api.call('friends.get',{ order: 'random', count: 5, fields: 'photo_50' }, response => {
+          
+          VK.Api.call('friends.get',{ order: 'random', count: 5, fields: 'photo_50' }, response => {
           user.friends = response.response;
           this.setState({
             user,
             loading: false
           });
+        });
         });
       }
     });
@@ -54,13 +55,13 @@ class App extends Component {
         
         VK.Api.call('users.get', { id, fields: 'photo_50' }, response => {
           user.photo = response.response[0].photo_50;
-        });
-        
-        VK.Api.call('friends.get',{ order: 'random', count: 5, fields: 'photo_50' }, response => {
+          
+          VK.Api.call('friends.get',{ order: 'random', count: 5, fields: 'photo_50' }, response => {
           user.friends = response.response;
           this.setState({
             user
           });
+        });
         });
       }
     });
